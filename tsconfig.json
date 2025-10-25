@@ -9,9 +9,7 @@
     "noUnusedParameters": true,
     "baseUrl": "src",
     "paths": {
-      "@screens/*": ["screens/*"],
-      "@screens": ["screens/index"],
-      "@api/*": ["common/api/*"],
+      "@/*": ["*"]
     }
   }
 }

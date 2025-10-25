@@ -1,4 +1,4 @@
-import '@/i18n'
+// import '@/i18n'
 import RootRouter from '@/screens/RootRouter'
 import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'react-native'
