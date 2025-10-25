@@ -1,22 +1,38 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { SafeAreaView, FlatList, StyleSheet } from 'react-native'
+import type { ListRenderItem } from 'react-native'
+import ActivityCard from '@/components/ActivityCard'
+import { activitiesMock, type Activity } from '@/mocks/activities'
 import { RootStackScreenProps } from './types/root'
 
 const HomeScreen = ({ navigation }: RootStackScreenProps<'Home'>) => {
+  const renderActivity: ListRenderItem<Activity> = ({ item }) => (
+    <ActivityCard
+      activity={item}
+      onPress={() => navigation.navigate('Details')}
+    />
+  )
+
   return (
-    <View style={styles.container}>
-      <Text>Hello, developer</Text>
-      <TouchableOpacity onPress={() => navigation.navigate('Details')}>
-        <Text>Go to details</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <FlatList
+        data={activitiesMock}
+        keyExtractor={item => item.id.toString()}
+        renderItem={renderActivity}
+        contentContainerStyle={styles.listContent}
+        showsVerticalScrollIndicator={false}
+      />
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+  listContent: {
+    paddingVertical: 24,
+    paddingHorizontal: 16,
   },
 })
 
