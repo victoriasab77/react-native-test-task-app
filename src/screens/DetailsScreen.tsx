@@ -1,19 +1,53 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
-import { RootStackScreenProps } from './types/root'
 import ArrowLeft from '@/assets/icons/arrowLeft.png'
+import { useCachedActivity } from '@/services/activities'
+import { RootStackScreenProps } from './types/root'
 
 const DetailsScreen = ({
   navigation,
   route,
 }: RootStackScreenProps<'Details'>) => {
-  const { activity } = route.params
+  const { activityId } = route.params
+  const {
+    data: activity,
+    isPending,
+    isFetching,
+  } = useCachedActivity(activityId)
+
+  if (isPending || isFetching) {
+    return (
+      <View className="flex-1 items-center justify-center bg-white">
+        <Text className="font-sfregular text-[14px] text-[#999]">
+          Loading activity…
+        </Text>
+      </View>
+    )
+  }
+
+  if (!activity) {
+    return (
+      <View className="flex-1 items-center justify-center bg-white px-6">
+        <Text className="font-sfregular text-center text-[14px] text-[#999]">
+          Unable to load the activity details right now.
+        </Text>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          className="mt-4 bg-black rounded-full px-6 py-3"
+          activeOpacity={0.8}
+        >
+          <Text className="font-abelregular text-white text-[14px]">
+            Go back
+          </Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   return (
     <View className="relative flex-1 bg-white">
       <View className="relative">
         <Image
-          source={{
-            uri: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141',
-          }}
+          source={{ uri: activity.photoUrl }}
           className="w-full h-[450px] rounded-b-3xl"
         />
 
@@ -25,6 +59,7 @@ const DetailsScreen = ({
           <Image source={ArrowLeft} className="w-5 h-5" />
         </TouchableOpacity>
       </View>
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerClassName="pb-32"
@@ -50,19 +85,21 @@ const DetailsScreen = ({
               Description
             </Text>
             <Text className="font-sfregular text-[14px] text-[#9D9D9D]">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Vestibulum sed mauris varius, rutrum quam eu, rutrum justo.
-              Quisque fermentum malesuada suscipit. Sed varius dictum ante vel
-              mollis.
+              {activity.description}
             </Text>
           </View>
 
-          <View className="border-b border-[#F5F5F5] pb-3 mb-10"></View>
+          <View className="border-b border-[#F5F5F5] pb-3 mb-10">
+            <Text className="font-sfregular text-[14px] text-[#9D9D9D]">
+              Location: {activity.location}
+            </Text>
+          </View>
         </View>
       </ScrollView>
+
       <TouchableOpacity
         activeOpacity={0.9}
-        className=" absolute bottom-6 left-6 right-6 bg-black rounded-full py-5 mb-5"
+        className="absolute bottom-6 left-6 right-6 bg-black rounded-full py-5 mb-5"
       >
         <Text className="font-abelregular text-white text-center text-[16px]">
           Add to Favorites

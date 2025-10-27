@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native'
-import type { Activity } from '@/mocks/activities'
+import type { Activity } from '@/services/activities'
 import MapPin from '@/assets/icons/MapPin.png'
 import Tag from '@/assets/icons/tag.png'
 import Star from '@/assets/icons/star.png'
@@ -13,10 +13,14 @@ import Star from '@/assets/icons/star.png'
 type Props = {
   activity: Activity
   onPress: () => void
-  isFavourite: boolean
+  isFavourite?: boolean
 }
 
-export default function ActivityCard({ activity, onPress }: Props) {
+export default function ActivityCard({
+  activity,
+  onPress,
+  isFavourite,
+}: Props) {
   return (
     <TouchableOpacity
       activeOpacity={0.9}
@@ -29,9 +33,11 @@ export default function ActivityCard({ activity, onPress }: Props) {
           className="h-[180px] w-full rounded-2xl overflow-hidden"
         />
 
-        <View className="absolute top-3 left-3 ">
-          <Image source={Tag} className="w-[28px] h-[28px]" />
-        </View>
+        {isFavourite && (
+          <View className="absolute top-3 left-3">
+            <Image source={Tag} className="w-[28px] h-[28px]" />
+          </View>
+        )}
       </View>
 
       <View className="bg-[#F7F7F7] rounded-2xl py-4 px-5 mt-1 gap-2">

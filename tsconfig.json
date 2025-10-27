@@ -9,9 +9,7 @@
     "noUnusedParameters": true,
     "baseUrl": "src",
     "paths": {
-      "@/*": [
-        "*"
-      ]
+      "@/*": ["*"]
     }
   },
   "include": [
@@ -19,6 +17,7 @@
     "nativewind.d.ts",
     "App.tsx",
     "index.js",
-    "nativewind-env.d.ts"
+    "nativewind-env.d.ts",
+    "declarations.d.ts"
   ]
 }
