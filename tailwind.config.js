@@ -1,9 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./App.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}'],
-  presets: [require('nativewind/preset')], // 👈 обов’язково додаємо це
+  presets: [require('nativewind/preset')],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sfregular: ['SFProDisplay-Regular', 'System'],
+        abelregular: ['Abel-Regular', 'System'],
+      },
+    },
   },
   plugins: [],
 }

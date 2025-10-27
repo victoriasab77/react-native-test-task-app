@@ -1,8 +1,9 @@
+import { Activity } from '@/mocks/activities'
 import { StackScreenProps } from '@react-navigation/stack'
 
 export type RootStackParamList = {
   Home: undefined
-  Details: { id: string }
+  Details: { activity: Activity }
 }
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

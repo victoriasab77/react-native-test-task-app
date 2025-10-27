@@ -13,6 +13,7 @@ import Star from '@/assets/icons/star.png'
 type Props = {
   activity: Activity
   onPress: () => void
+  isFavourite: boolean
 }
 
 export default function ActivityCard({ activity, onPress }: Props) {
@@ -22,25 +23,20 @@ export default function ActivityCard({ activity, onPress }: Props) {
       onPress={onPress}
       className="mb-4 rounded-2xl overflow-hidden"
     >
-      {/* Image with yellow tag */}
       <View className="relative">
         <ImageBackground
           source={{ uri: activity.photoUrl }}
           className="h-[180px] w-full rounded-2xl overflow-hidden"
-          imageStyle={{ borderRadius: 20 }}
         />
 
-        {/* yellow tag */}
         <View className="absolute top-3 left-3 ">
           <Image source={Tag} className="w-[28px] h-[28px]" />
         </View>
       </View>
 
-      {/* Card content */}
       <View className="bg-[#F7F7F7] rounded-2xl py-4 px-5 mt-1 gap-2">
-        {/* Top row: title + rating */}
         <View className="flex-row justify-between items-center">
-          <Text className="text-base font-semibold text-[#1A1A1A]">
+          <Text className="font-abelregular text-[16px] text-[#000000]">
             {activity.name}
           </Text>
           <View className="flex-row items-center">
@@ -49,13 +45,12 @@ export default function ActivityCard({ activity, onPress }: Props) {
               className="w-[16px] h-[16px] mr-1"
               resizeMode="contain"
             />
-            <Text className="text-[14px] font-400 text-[#1A1A1A]">
+            <Text className="font-sfregular text-[12px] text-[#000000]">
               {activity.rating?.toFixed(1)}
             </Text>
           </View>
         </View>
 
-        {/* Location + Price */}
         <View className="flex-row justify-between items-center">
           <View className="flex-row items-center">
             <Image
@@ -63,14 +58,18 @@ export default function ActivityCard({ activity, onPress }: Props) {
               className="h-[13px] w-[10px] mr-[6px]"
               resizeMode="contain"
             />
-            <Text className="text-[14px] text-[#555]">{activity.location}</Text>
+            <Text className="font-sfregular text-[12px] text-[#000000]">
+              {activity.location}
+            </Text>
           </View>
 
-          <View className="flex-row items-end">
-            <Text className="text-[14px] font-400 text-[#1A1A1A]">
+          <View className="flex-row ">
+            <Text className="font-abelregular text-[14px] text-[#000000] ">
               ${activity.price.toFixed(2)}
             </Text>
-            <Text className="text-[13px] text-[#888] ml-1">/ night</Text>
+            <Text className="font-sfregular text-[12px] text-[#979797] ml-1">
+              / night
+            </Text>
           </View>
         </View>
       </View>

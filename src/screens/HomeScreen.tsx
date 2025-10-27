@@ -10,25 +10,21 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<'Home'>) => {
     ({ item }) => (
       <ActivityCard
         activity={item}
-        onPress={() => navigation.navigate('Details')}
+        onPress={() => navigation.navigate('Details', { activity: item })}
+        isFavourite
       />
     ),
-    [],
-  )
-
-  const renderHeader = useCallback(
-    () => (
-      <View className="mb-9 items-center">
-        <Text className="text-[18px] font-400 text-[#1A1A1A]">Activities</Text>
-      </View>
-    ),
-    [],
+    [navigation],
   )
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <View className="mb-3 items-center">
+        <Text className="font-abelregular text-[16px] text-[#000000]">
+          Activities
+        </Text>
+      </View>
       <FlatList
-        ListHeaderComponent={renderHeader}
         data={activitiesMock}
         keyExtractor={item => item.id.toString()}
         renderItem={renderItem}
