@@ -2,6 +2,8 @@ import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
 import ArrowLeft from '@/assets/icons/arrowLeft.png'
 import { useCachedActivity } from '@/services/activities'
 import { RootStackScreenProps } from './types/root'
+import LoadingState from '@/components/LoadingState'
+import ErrorState from '@/components/ErrorState'
 
 const DetailsScreen = ({
   navigation,
@@ -14,24 +16,27 @@ const DetailsScreen = ({
     isFetching,
   } = useCachedActivity(activityId)
 
-  if (isPending || isFetching) {
+  const goBack = () => navigation.goBack()
+
+  const isLoading = isPending || isFetching
+
+  if (isLoading) {
     return (
-      <View className="flex-1 items-center justify-center bg-white">
-        <Text className="font-sfregular text-[14px] text-[#999]">
-          Loading activity…
-        </Text>
-      </View>
+      <LoadingState
+        message="Loading activity…"
+        className="flex-1 items-center justify-center bg-white px-6"
+      />
     )
   }
 
   if (!activity) {
     return (
-      <View className="flex-1 items-center justify-center bg-white px-6">
-        <Text className="font-sfregular text-center text-[14px] text-[#999]">
-          Unable to load the activity details right now.
-        </Text>
+      <ErrorState
+        message="Unable to load the activity details right now."
+        className="flex-1 items-center justify-center bg-white px-6"
+      >
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={goBack}
           className="mt-4 bg-black rounded-full px-6 py-3"
           activeOpacity={0.8}
         >
@@ -39,21 +44,24 @@ const DetailsScreen = ({
             Go back
           </Text>
         </TouchableOpacity>
-      </View>
+      </ErrorState>
     )
   }
+
+  const { photoUrl, name, price, description, location } = activity
+  const formattedPrice = price.toFixed(2)
 
   return (
     <View className="relative flex-1 bg-white">
       <View className="relative">
         <Image
-          source={{ uri: activity.photoUrl }}
+          source={{ uri: photoUrl }}
           className="w-full h-[450px] rounded-b-3xl"
         />
 
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => navigation.goBack()}
+          onPress={goBack}
           className="absolute top-14 left-4 bg-[#F7F7F7] rounded-full p-6"
         >
           <Image source={ArrowLeft} className="w-5 h-5" />
@@ -67,13 +75,13 @@ const DetailsScreen = ({
         <View className="px-6 pt-8">
           <View className="flex-row justify-between mb-3">
             <Text className="text-[24px] font-abelregular text-[#000000]">
-              {activity.name}
+              {name}
             </Text>
           </View>
 
           <View className="flex-row justify-between items-center border-b border-[#F5F5F5] pb-3 mb-3">
             <Text className="text-[16px] font-abelregular text-[#000000]">
-              ${activity.price.toFixed(2)}
+              ${formattedPrice}
             </Text>
             <Text className="font-sfregular text-[12px] text-[#979797]">
               Included taxes and fees
@@ -85,13 +93,13 @@ const DetailsScreen = ({
               Description
             </Text>
             <Text className="font-sfregular text-[14px] text-[#9D9D9D]">
-              {activity.description}
+              {description}
             </Text>
           </View>
 
           <View className="border-b border-[#F5F5F5] pb-3 mb-10">
             <Text className="font-sfregular text-[14px] text-[#9D9D9D]">
-              Location: {activity.location}
+              Location: {location}
             </Text>
           </View>
         </View>

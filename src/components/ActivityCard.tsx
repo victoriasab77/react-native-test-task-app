@@ -5,22 +5,28 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native'
+
 import type { Activity } from '@/services/activities'
+
 import MapPin from '@/assets/icons/MapPin.png'
 import Tag from '@/assets/icons/tag.png'
 import Star from '@/assets/icons/star.png'
 
 type Props = {
   activity: Activity
-  onPress: () => void
   isFavourite?: boolean
+  onPress: () => void
 }
 
 export default function ActivityCard({
   activity,
-  onPress,
   isFavourite,
+  onPress,
 }: Props) {
+  const { name, location, price, rating, photoUrl } = activity
+  const activityPrice = price.toFixed(2)
+  const activityRating = rating?.toFixed(1)
+
   return (
     <TouchableOpacity
       activeOpacity={0.9}
@@ -29,7 +35,7 @@ export default function ActivityCard({
     >
       <View className="relative">
         <ImageBackground
-          source={{ uri: activity.photoUrl }}
+          source={{ uri: photoUrl }}
           className="h-[180px] w-full rounded-2xl overflow-hidden"
         />
 
@@ -43,7 +49,7 @@ export default function ActivityCard({
       <View className="bg-[#F7F7F7] rounded-2xl py-4 px-5 mt-1 gap-2">
         <View className="flex-row justify-between items-center">
           <Text className="font-abelregular text-[16px] text-[#000000]">
-            {activity.name}
+            {name}
           </Text>
           <View className="flex-row items-center">
             <Image
@@ -52,7 +58,7 @@ export default function ActivityCard({
               resizeMode="contain"
             />
             <Text className="font-sfregular text-[12px] text-[#000000]">
-              {activity.rating?.toFixed(1)}
+              {activityRating}
             </Text>
           </View>
         </View>
@@ -65,13 +71,13 @@ export default function ActivityCard({
               resizeMode="contain"
             />
             <Text className="font-sfregular text-[12px] text-[#000000]">
-              {activity.location}
+              {location}
             </Text>
           </View>
 
           <View className="flex-row ">
             <Text className="font-abelregular text-[14px] text-[#000000] ">
-              ${activity.price.toFixed(2)}
+              ${activityPrice}
             </Text>
             <Text className="font-sfregular text-[12px] text-[#979797] ml-1">
               / night
