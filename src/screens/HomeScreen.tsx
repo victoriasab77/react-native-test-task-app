@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { SafeAreaView, FlatList, Text, View } from 'react-native'
 import type { ListRenderItem } from 'react-native'
 import ActivityCard from '@/components/ActivityCard'
@@ -8,8 +8,9 @@ import { useActivitiesQuery, type Activity } from '@/services/activities'
 import { RootStackScreenProps } from './types/root'
 
 const HomeScreen = ({ navigation }: RootStackScreenProps<'Home'>) => {
-  const { data, isLoading, error } = useActivitiesQuery()
+  const { data, isLoading, error, refetch } = useActivitiesQuery()
   const activities = data ?? []
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
   const renderItem: ListRenderItem<Activity> = useCallback(
     ({ item }) => (
@@ -44,8 +45,17 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<'Home'>) => {
   }, [error, isLoading])
 
   const listData = isLoading || error ? [] : activities
+
   const contentContainerClassName =
     isLoading || error ? 'flex-1 justify-center px-4' : 'py-6 px-4'
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true)
+    try {
+      await refetch()
+    } finally {
+      setIsRefreshing(false)
+    }
+  }, [refetch])
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -58,6 +68,8 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<'Home'>) => {
         data={listData}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
+        refreshing={isRefreshing}
+        onRefresh={handleRefresh}
         contentContainerClassName={contentContainerClassName}
         ListEmptyComponent={renderEmptyComponent}
         showsVerticalScrollIndicator={false}
