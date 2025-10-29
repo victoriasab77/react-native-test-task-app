@@ -1,16 +1,11 @@
-import {
-  View,
-  Text,
-  ImageBackground,
-  TouchableOpacity,
-  Image,
-} from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 
 import type { Activity } from '@/services/activities'
 
 import MapPin from '@/assets/icons/MapPin.png'
 import Tag from '@/assets/icons/tag.png'
 import Star from '@/assets/icons/star.png'
+import RemoteImage from '@/components/RemoteImage'
 
 type Props = {
   activity: Activity
@@ -34,8 +29,8 @@ export default function ActivityCard({
       className="mb-4 rounded-2xl overflow-hidden"
     >
       <View className="relative">
-        <ImageBackground
-          source={{ uri: photoUrl }}
+        <RemoteImage
+          uri={photoUrl}
           className="h-[180px] w-full rounded-2xl overflow-hidden"
         />
 

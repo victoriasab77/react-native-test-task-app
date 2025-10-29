@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
 import ArrowLeft from '@/assets/icons/arrowLeft.png'
 import {
   useCachedActivity,
@@ -7,6 +7,7 @@ import {
 import { RootStackScreenProps } from './types/root'
 import LoadingState from '@/components/LoadingState'
 import ErrorState from '@/components/ErrorState'
+import RemoteImage from '@/components/RemoteImage'
 
 const DetailsScreen = ({
   navigation,
@@ -61,8 +62,8 @@ const DetailsScreen = ({
   return (
     <View className="relative flex-1 bg-white">
       <View className="relative">
-        <Image
-          source={{ uri: photoUrl }}
+        <RemoteImage
+          uri={photoUrl}
           className="w-full h-[450px] rounded-b-3xl"
         />
 

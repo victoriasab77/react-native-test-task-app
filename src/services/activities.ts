@@ -31,7 +31,16 @@ export const useActivitiesQuery = <TData = Activity[]>(
       const res = await api.get('/activities')
       return res.data
     },
-    staleTime: 1000 * 60,
+    // cache configuration tuned for static content.
+    // we keep activities fresh for 5 minutes (staleTime)
+    // and retain them in memory for up to 30 minutes (gcTime).
+    // auto-refetching on focus, reconnect, and intervals are disabled
+    // since the data set is small, rarely changes, and does not require real-time sync.
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 30,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchInterval: false,
     ...options,
   })
 }
