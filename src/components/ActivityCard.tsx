@@ -2,9 +2,9 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 
 import type { Activity } from '@/services/activities'
 
-import MapPin from '@/assets/icons/MapPin.png'
-import Tag from '@/assets/icons/tag.png'
-import Star from '@/assets/icons/star.png'
+import MapPin from '@/assets/icons/MapPin.webp'
+import Tag from '@/assets/icons/tag.webp'
+import Star from '@/assets/icons/star.webp'
 import RemoteImage from '@/components/RemoteImage'
 
 type Props = {

@@ -1,6 +1,6 @@
 import { Animated, Easing, Image, Text, TouchableOpacity } from 'react-native'
 import { useEffect, useMemo, useRef } from 'react'
-import Tag from '@/assets/icons/tag.png'
+import Tag from '@/assets/icons/tag.webp'
 
 type FavoriteButtonProps = {
   isFavourite: boolean

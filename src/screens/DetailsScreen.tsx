@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
-import ArrowLeft from '@/assets/icons/arrowLeft.png'
+import ArrowLeft from '@/assets/icons/arrowLeft.webp'
 import {
   useCachedActivity,
   useAddFavoriteMutation,
