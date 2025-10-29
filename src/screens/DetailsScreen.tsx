@@ -66,7 +66,7 @@ const DetailsScreen = ({
       <View className="relative">
         <RemoteImage
           uri={photoUrl}
-          className="w-full h-[450px] rounded-b-3xl"
+          className="w-full h-[450px] rounded-b-3xl bg-[#ECECEC]"
         />
 
         <TouchableOpacity

@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
-import { SafeAreaView, FlatList, Text, View } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
 import type { ListRenderItem } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import ActivityCard from '@/components/ActivityCard'
 import LoadingState from '@/components/LoadingState'
 import ErrorState from '@/components/ErrorState'
@@ -58,7 +59,10 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<'Home'>) => {
   }, [refetch])
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView
+      className="flex-1 bg-white pt-safe"
+      edges={['right', 'bottom', 'left']}
+    >
       <View className="mb-3 items-center">
         <Text className="font-abelregular text-[16px] text-[#000000]">
           Activities

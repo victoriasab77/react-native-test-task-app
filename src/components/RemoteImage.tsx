@@ -1,10 +1,13 @@
 import {
+  ActivityIndicator,
   ImageLoadEventData,
   ImageURISource,
-  Image as RNImage,
+  Image,
   type ImageErrorEventData,
   type ImageProps,
   type NativeSyntheticEvent,
+  StyleSheet,
+  Platform,
 } from 'react-native'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
@@ -15,6 +18,20 @@ type Props = Omit<ImageProps, 'source'> & {
   fallbackSource?: ImageURISource | number
 }
 
+/**
+ * we display an ActivityIndicator while the image is loading (especially on Android).
+ * onLoadStart → loading = true (spinner shows)
+ * onLoadEnd or onError → loading = false (spinner hides)
+ * We use fallbackSource when uri is missing or an error occurs.
+ *
+ * In this specific case we added the loader + fallback logic because one of the image URLs
+ * is broken / never finishes loading, which causes the UI to hang without any feedback.
+ * In a real-world scenario you would treat this as a backend/URL issue: validate the URL, fix the image on server side,
+ * and avoid client-side hacks like multiple timers or complicated retry logic.
+ *       – communicate with the backend (validate URL, check image availability, log slow loads),
+ *       – possibly replace the image with an alternative or show an error state instead of indefinitely waiting.
+ */
+
 const RemoteImage = ({
   uri,
   fallbackSource = PlaceholderImage,
@@ -23,6 +40,7 @@ const RemoteImage = ({
   ...rest
 }: Props) => {
   const [shouldUseFallback, setShouldUseFallback] = useState(!uri)
+  const [loading, setLoading] = useState(false)
   const previousUriRef = useRef<string | null | undefined>(uri)
 
   useEffect(() => {
@@ -36,7 +54,6 @@ const RemoteImage = ({
     if (!uri || shouldUseFallback) {
       return fallbackSource
     }
-
     return { uri }
   }, [fallbackSource, shouldUseFallback, uri])
 
@@ -58,14 +75,29 @@ const RemoteImage = ({
     [onError],
   )
 
+  const handleLoadStart = () => {
+    setLoading(true)
+  }
+
+  const handleLoadEnd = () => {
+    setLoading(false)
+  }
+
   return (
-    <RNImage
-      {...rest}
-      source={source}
-      defaultSource={fallbackSource}
-      onLoad={handleLoad}
-      onError={handleError}
-    />
+    <>
+      <Image
+        {...rest}
+        source={source}
+        defaultSource={fallbackSource}
+        onLoadStart={handleLoadStart}
+        onLoad={handleLoad}
+        onLoadEnd={handleLoadEnd}
+        onError={handleError}
+      />
+      {loading && Platform.OS === 'android' && (
+        <ActivityIndicator size="large" style={StyleSheet.absoluteFillObject} />
+      )}
+    </>
   )
 }
 

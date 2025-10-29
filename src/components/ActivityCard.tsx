@@ -31,7 +31,7 @@ export default function ActivityCard({
       <View className="relative">
         <RemoteImage
           uri={photoUrl}
-          className="h-[180px] w-full rounded-2xl overflow-hidden"
+          className="h-[180px] w-full rounded-2xl overflow-hidden bg-[#ECECEC]"
         />
 
         {isFavourite && (
