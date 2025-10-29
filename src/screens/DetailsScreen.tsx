@@ -8,25 +8,27 @@ import { RootStackScreenProps } from './types/root'
 import LoadingState from '@/components/LoadingState'
 import ErrorState from '@/components/ErrorState'
 import RemoteImage from '@/components/RemoteImage'
+import FavoriteButton from '@/components/FavoriteButton'
 
 const DetailsScreen = ({
   navigation,
   route,
 }: RootStackScreenProps<'Details'>) => {
   const { activityId } = route.params
+
   const {
     data: activity,
     isPending,
     isFetching,
   } = useCachedActivity(activityId)
 
-  const goBack = () => navigation.goBack()
   const addFavoriteMutation = useAddFavoriteMutation()
+  const goBack = () => navigation.goBack()
+  const isLoading = isPending || isFetching
+
   const handleAddToFavourites = () => {
     addFavoriteMutation.mutate(activityId)
   }
-
-  const isLoading = isPending || isFetching
 
   if (isLoading) {
     return (
@@ -56,7 +58,7 @@ const DetailsScreen = ({
     )
   }
 
-  const { photoUrl, name, price, description, location } = activity
+  const { photoUrl, name, price, description, location, isFavourite } = activity
   const formattedPrice = price.toFixed(2)
 
   return (
@@ -82,13 +84,13 @@ const DetailsScreen = ({
       >
         <View className="px-6 pt-8">
           <View className="flex-row justify-between mb-3">
-            <Text className="text-[24px] font-abelregular text-[#000000]">
+            <Text className="text-[24px] font-abelregular text-black">
               {name}
             </Text>
           </View>
 
           <View className="flex-row justify-between items-center border-b border-[#F5F5F5] pb-3 mb-3">
-            <Text className="text-[16px] font-abelregular text-[#000000]">
+            <Text className="text-[16px] font-abelregular text-black">
               ${formattedPrice}
             </Text>
             <Text className="font-sfregular text-[12px] text-[#979797]">
@@ -97,7 +99,7 @@ const DetailsScreen = ({
           </View>
 
           <View className="mb-6">
-            <Text className="text-[16px] font-abelregular text-[#000] mb-1.5">
+            <Text className="text-[16px] font-abelregular text-black mb-1.5">
               Description
             </Text>
             <Text className="font-sfregular text-[14px] text-[#9D9D9D]">
@@ -113,15 +115,11 @@ const DetailsScreen = ({
         </View>
       </ScrollView>
 
-      <TouchableOpacity
-        activeOpacity={0.9}
-        className="absolute bottom-6 left-6 right-6 bg-black rounded-full py-5 mb-5"
+      <FavoriteButton
+        isFavourite={!!isFavourite}
         onPress={handleAddToFavourites}
-      >
-        <Text className="font-abelregular text-white text-center text-[16px]">
-          Add to Favorites
-        </Text>
-      </TouchableOpacity>
+        isPending={addFavoriteMutation.isPending}
+      />
     </View>
   )
 }
