@@ -1,6 +1,7 @@
 import {
   useQuery,
   useMutation,
+  useQueryClient,
   type UseQueryOptions,
 } from '@tanstack/react-query'
 import { api } from './api'
@@ -44,10 +45,22 @@ export const useCachedActivity = (id: number) =>
   })
 
 export const useAddFavoriteMutation = () => {
+  const queryClient = useQueryClient()
+
   return useMutation({
     mutationFn: async (id: number) => {
       const res = await api.post('/favorites', { id })
       return res.data
+    },
+    onSuccess: (_, id) => {
+      queryClient.setQueryData<Activity[]>(['activities'], prev => {
+        if (!prev) {
+          return prev
+        }
+        return prev.map(activity =>
+          activity.id === id ? { ...activity, isFavourite: true } : activity,
+        )
+      })
     },
   })
 }

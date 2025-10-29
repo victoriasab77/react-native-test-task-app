@@ -1,6 +1,9 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
 import ArrowLeft from '@/assets/icons/arrowLeft.png'
-import { useCachedActivity } from '@/services/activities'
+import {
+  useCachedActivity,
+  useAddFavoriteMutation,
+} from '@/services/activities'
 import { RootStackScreenProps } from './types/root'
 import LoadingState from '@/components/LoadingState'
 import ErrorState from '@/components/ErrorState'
@@ -17,6 +20,10 @@ const DetailsScreen = ({
   } = useCachedActivity(activityId)
 
   const goBack = () => navigation.goBack()
+  const addFavoriteMutation = useAddFavoriteMutation()
+  const handleAddToFavourites = () => {
+    addFavoriteMutation.mutate(activityId)
+  }
 
   const isLoading = isPending || isFetching
 
@@ -108,6 +115,7 @@ const DetailsScreen = ({
       <TouchableOpacity
         activeOpacity={0.9}
         className="absolute bottom-6 left-6 right-6 bg-black rounded-full py-5 mb-5"
+        onPress={handleAddToFavourites}
       >
         <Text className="font-abelregular text-white text-center text-[16px]">
           Add to Favorites
