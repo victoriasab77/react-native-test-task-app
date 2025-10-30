@@ -17,7 +17,7 @@ const LoadingState: FC<LoadingStateProps> = ({
   message,
   indicatorSize = 'large',
   className = 'flex-1 items-center justify-center',
-  textClassName = 'mt-3 font-sfregular text-[14px] text-[#999]',
+  textClassName = 'mt-3 font-sfregular text-label text-secondary',
 }) => (
   <View className={className}>
     <ActivityIndicator size={indicatorSize} />

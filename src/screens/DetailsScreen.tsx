@@ -27,6 +27,9 @@ const DetailsScreen = ({
 
   const addFavoriteMutation = useAddFavoriteMutation()
 
+  const { loading, errorMessage, back, priceSuffix, locationPrefix } =
+    texts.details
+
   const goBack = () => navigation.goBack()
   const isLoading = isPending || isFetching
 
@@ -37,7 +40,7 @@ const DetailsScreen = ({
   if (isLoading) {
     return (
       <LoadingState
-        message={texts.details.loading}
+        message={loading}
         className="flex-1 items-center justify-center bg-white px-6"
       />
     )
@@ -46,7 +49,7 @@ const DetailsScreen = ({
   if (!activity) {
     return (
       <ErrorState
-        message={texts.details.error}
+        message={errorMessage}
         className="flex-1 items-center justify-center bg-white px-6"
       >
         <TouchableOpacity
@@ -55,7 +58,7 @@ const DetailsScreen = ({
           activeOpacity={0.8}
         >
           <Text className="font-abelregular text-white text-[14px]">
-            {texts.details.goBack}
+            {back}
           </Text>
         </TouchableOpacity>
       </ErrorState>
@@ -70,13 +73,13 @@ const DetailsScreen = ({
       <View className="relative">
         <RemoteImage
           uri={photoUrl}
-          className="w-full h-[450px] rounded-b-3xl bg-[#ECECEC]"
+          className="w-full h-[450px] rounded-b-3xl bg-surface-muted"
         />
 
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={goBack}
-          className="absolute top-14 left-4 bg-[#F7F7F7] rounded-full p-6"
+          className="absolute top-14 left-4 rounded-full p-6 bg-surface"
         >
           <Image source={ArrowLeftIcon} className="w-5 h-5" />
         </TouchableOpacity>
@@ -88,32 +91,32 @@ const DetailsScreen = ({
       >
         <View className="px-6 pt-8">
           <View className="flex-row justify-between mb-3">
-            <Text className="text-[24px] font-abelregular text-black">
+            <Text className="font-abelregular text-heading text-primary">
               {name}
             </Text>
           </View>
 
-          <View className="flex-row justify-between items-center border-b border-[#F5F5F5] pb-3 mb-3">
-            <Text className="text-[16px] font-abelregular text-black">
+          <View className="flex-row justify-between items-center border-b border-border pb-3 mb-3">
+            <Text className="font-abelregular text-body text-primary">
               ${formattedPrice}
             </Text>
-            <Text className="font-sfregular text-[12px] text-[#979797]">
-              {texts.details.priceSuffix}
+            <Text className="font-sfregular text-caption text-secondary">
+              {priceSuffix}
             </Text>
           </View>
 
           <View className="mb-6">
-            <Text className="text-[16px] font-abelregular text-black mb-1.5">
+            <Text className="font-abelregular text-body text-primary mb-1.5">
               {texts.details.description}
             </Text>
-            <Text className="font-sfregular text-[14px] text-[#9D9D9D]">
+            <Text className="font-sfregular text-label text-muted">
               {description}
             </Text>
           </View>
 
-          <View className="border-b border-[#F5F5F5] pb-3 mb-10">
-            <Text className="font-sfregular text-[14px] text-[#9D9D9D]">
-              {texts.details.locationPrefix} {location}
+          <View className="border-b border-border pb-3 mb-10">
+            <Text className="font-sfregular text-label text-muted">
+              {locationPrefix} {location}
             </Text>
           </View>
         </View>

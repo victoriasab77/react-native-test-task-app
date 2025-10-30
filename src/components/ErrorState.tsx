@@ -11,7 +11,7 @@ type ErrorStateProps = {
 const ErrorState: FC<ErrorStateProps> = ({
   message,
   className = 'flex-1 items-center justify-center',
-  messageClassName = 'font-sfregular text-center text-[14px] text-[#999]',
+  messageClassName = 'font-sfregular text-center text-label text-secondary',
   children,
 }) => (
   <View className={className}>

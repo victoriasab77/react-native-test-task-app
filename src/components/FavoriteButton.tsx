@@ -19,6 +19,8 @@ const FavoriteButton = ({
   const fadeText = useRef(new Animated.Value(isFavourite ? 1 : 0)).current
   const previousIsFavourite = useRef<boolean>(isFavourite)
 
+  const { addToFavorites, addedToFavorites } = texts.details
+
   useEffect(() => {
     if (previousIsFavourite.current === isFavourite) {
       return
@@ -60,14 +62,14 @@ const FavoriteButton = ({
       >
         <TouchableOpacity
           activeOpacity={0.9}
-          className={`bg-black rounded-full py-5 ${
+          className={`bg-primary rounded-full py-5 ${
             isDisabled ? 'opacity-65' : ''
           }`}
           onPress={onPress}
           disabled={isDisabled}
         >
-          <Text className="font-abelregular text-white text-center text-[16px]">
-            {texts.details.addToFavorites}
+          <Text className="font-abelregular text-body text-white text-center">
+            {addToFavorites}
           </Text>
         </TouchableOpacity>
       </Animated.View>
@@ -79,8 +81,8 @@ const FavoriteButton = ({
             'absolute bottom-10 left-0 right-0 items-center flex-row justify-center'
           }
         >
-          <Text className="text-[#000] font-abelregular text-[16px]">
-            {texts.details.addedToFavorites}
+          <Text className="text-primary font-abelregular text-body">
+            {addedToFavorites}
           </Text>
           <Image source={TagIcon} className="w-[28px] h-[28px] ml-2" />
         </Animated.View>

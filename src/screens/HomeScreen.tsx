@@ -36,11 +36,13 @@ const HomeScreen = ({
 
   const keyExtractor = useCallback((item: Activity) => item.id.toString(), [])
 
+  const { loading, errorMessage, title } = texts.home
+
   const renderEmptyComponent = useCallback(() => {
     if (isLoading) {
       return (
         <LoadingState
-          message={texts.home.loading}
+          message={loading}
           className="flex-1 items-center justify-center py-10"
         />
       )
@@ -49,7 +51,7 @@ const HomeScreen = ({
     if (error) {
       return (
         <ErrorState
-          message={texts.home.error}
+          message={errorMessage}
           className="flex-1 items-center justify-center py-10"
         />
       )
@@ -78,9 +80,7 @@ const HomeScreen = ({
       edges={['right', 'bottom', 'left']}
     >
       <View className="mb-3 items-center">
-        <Text className="font-abelregular text-[16px] text-[#000000]">
-          {texts.home.title}
-        </Text>
+        <Text className="font-abelregular text-body text-primary">{title}</Text>
       </View>
       <FlatList
         data={listData}

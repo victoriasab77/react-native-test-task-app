@@ -8,12 +8,12 @@ export const texts = {
     title: 'Activities',
     empty: 'No activities available right now.',
     loading: 'Loading activities…',
-    error: 'Failed to load activities',
+    errorMessage: 'Failed to load activities',
   },
   details: {
     loading: 'Loading activity…',
-    error: 'Unable to load the activity details right now.',
-    goBack: 'Go back',
+    errorMessage: 'Unable to load the activity details right now.',
+    back: 'Go back',
     priceSuffix: 'Included taxes and fees',
     description: 'Description',
     locationPrefix: 'Location:',
@@ -22,6 +22,9 @@ export const texts = {
   },
   favorites: {
     adding: 'Adding…',
+  },
+  activityCard: {
+    night: '/ night',
   },
 }
 

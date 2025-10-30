@@ -5,6 +5,7 @@ import type { Activity } from '@types'
 import { RemoteImage } from '@components'
 
 import { MapPinIcon, TagIcon, StarIcon } from '@assets/icons'
+import { texts } from '@texts'
 
 type Props = {
   activity: Activity
@@ -21,16 +22,18 @@ export default function ActivityCard({
   const activityPrice = price.toFixed(2)
   const activityRating = rating?.toFixed(1)
 
+  const { night } = texts.activityCard
+
   return (
     <TouchableOpacity
       activeOpacity={0.9}
       onPress={onPress}
       className="mb-4 rounded-2xl overflow-hidden"
     >
-      <View className="relative">
+      <View className="relative rounded-2xl overflow-hidden">
         <RemoteImage
           uri={photoUrl}
-          className="h-[180px] w-full rounded-2xl overflow-hidden bg-[#ECECEC]"
+          className="h-[180px] w-full bg-surface-muted"
         />
 
         {isFavourite && (
@@ -40,9 +43,9 @@ export default function ActivityCard({
         )}
       </View>
 
-      <View className="bg-[#F7F7F7] rounded-2xl py-4 px-5 mt-1 gap-2">
+      <View className="bg-surface rounded-2xl py-4 px-5 mt-1 gap-2">
         <View className="flex-row justify-between items-center">
-          <Text className="font-abelregular text-[16px] text-[#000000]">
+          <Text className="font-abelregular text-body text-primary">
             {name}
           </Text>
           <View className="flex-row items-center">
@@ -51,7 +54,7 @@ export default function ActivityCard({
               className="w-[16px] h-[16px] mr-1"
               resizeMode="contain"
             />
-            <Text className="font-sfregular text-[12px] text-[#000000]">
+            <Text className="font-sfregular text-caption text-primary">
               {activityRating}
             </Text>
           </View>
@@ -64,17 +67,17 @@ export default function ActivityCard({
               className="h-[13px] w-[10px] mr-[6px]"
               resizeMode="contain"
             />
-            <Text className="font-sfregular text-[12px] text-[#000000]">
+            <Text className="font-sfregular text-caption text-primary">
               {location}
             </Text>
           </View>
 
           <View className="flex-row ">
-            <Text className="font-abelregular text-[14px] text-[#000000] ">
+            <Text className="font-abelregular text-label text-primary ">
               ${activityPrice}
             </Text>
-            <Text className="font-sfregular text-[12px] text-[#979797] ml-1">
-              / night
+            <Text className="font-sfregular text-caption text-secondary ml-1">
+              {night}
             </Text>
           </View>
         </View>
