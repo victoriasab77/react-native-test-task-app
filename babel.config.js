@@ -25,8 +25,11 @@ module.exports = function (api) {
         {
           root: ['./src'],
           alias: {
-            '@': './src',
             '@screens': './src/screens',
+            '@components': './src/components/index.ts',
+            '@assets': './src/assets',
+            '@services': './src/services',
+            '@types': './src/types/index.ts',
           },
         },
       ],

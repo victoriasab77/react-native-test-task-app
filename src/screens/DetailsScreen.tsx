@@ -1,19 +1,21 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
-import ArrowLeft from '@/assets/icons/arrowLeft.webp'
+
+import { useCachedActivity, useAddFavoriteMutation } from '@services/activities'
+import { RootStackRoute, RootStackScreenProps } from './types/root'
+
 import {
-  useCachedActivity,
-  useAddFavoriteMutation,
-} from '@/services/activities'
-import { RootStackScreenProps } from './types/root'
-import LoadingState from '@/components/LoadingState'
-import ErrorState from '@/components/ErrorState'
-import RemoteImage from '@/components/RemoteImage'
-import FavoriteButton from '@/components/FavoriteButton'
+  LoadingState,
+  ErrorState,
+  RemoteImage,
+  FavoriteButton,
+} from '@components'
+
+import { ArrowLeftIcon } from '@assets/icons'
 
 const DetailsScreen = ({
   navigation,
   route,
-}: RootStackScreenProps<'Details'>) => {
+}: RootStackScreenProps<RootStackRoute.DETAILS>) => {
   const { activityId } = route.params
 
   const {
@@ -23,6 +25,7 @@ const DetailsScreen = ({
   } = useCachedActivity(activityId)
 
   const addFavoriteMutation = useAddFavoriteMutation()
+
   const goBack = () => navigation.goBack()
   const isLoading = isPending || isFetching
 
@@ -74,7 +77,7 @@ const DetailsScreen = ({
           onPress={goBack}
           className="absolute top-14 left-4 bg-[#F7F7F7] rounded-full p-6"
         >
-          <Image source={ArrowLeft} className="w-5 h-5" />
+          <Image source={ArrowLeftIcon} className="w-5 h-5" />
         </TouchableOpacity>
       </View>
 

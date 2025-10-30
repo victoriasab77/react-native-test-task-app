@@ -1,11 +1,10 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 
-import type { Activity } from '@/services/activities'
+import type { Activity } from '@types'
 
-import MapPin from '@/assets/icons/MapPin.webp'
-import Tag from '@/assets/icons/tag.webp'
-import Star from '@/assets/icons/star.webp'
-import RemoteImage from '@/components/RemoteImage'
+import { RemoteImage } from '@components'
+
+import { MapPinIcon, TagIcon, StarIcon } from '@assets/icons'
 
 type Props = {
   activity: Activity
@@ -36,7 +35,7 @@ export default function ActivityCard({
 
         {isFavourite && (
           <View className="absolute top-3 left-3">
-            <Image source={Tag} className="w-[28px] h-[28px]" />
+            <Image source={TagIcon} className="w-[28px] h-[28px]" />
           </View>
         )}
       </View>
@@ -48,7 +47,7 @@ export default function ActivityCard({
           </Text>
           <View className="flex-row items-center">
             <Image
-              source={Star}
+              source={StarIcon}
               className="w-[16px] h-[16px] mr-1"
               resizeMode="contain"
             />
@@ -61,7 +60,7 @@ export default function ActivityCard({
         <View className="flex-row justify-between items-center">
           <View className="flex-row items-center">
             <Image
-              source={MapPin}
+              source={MapPinIcon}
               className="h-[13px] w-[10px] mr-[6px]"
               resizeMode="contain"
             />

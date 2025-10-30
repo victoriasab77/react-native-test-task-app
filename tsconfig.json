@@ -9,7 +9,11 @@
     "noUnusedParameters": true,
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"]
+      "@components": ["components/index"],
+      "@screens/*": ["screens/*"],
+      "@assets/*": ["assets/*"],
+      "@services/*": ["services/*"],
+      "@types": ["types/index"]
     }
   },
   "include": [

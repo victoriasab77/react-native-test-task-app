@@ -1,6 +1,7 @@
 import { Animated, Easing, Image, Text, TouchableOpacity } from 'react-native'
 import { useEffect, useMemo, useRef } from 'react'
-import Tag from '@/assets/icons/tag.webp'
+
+import { TagIcon } from '@assets/icons'
 
 type FavoriteButtonProps = {
   isFavourite: boolean
@@ -54,7 +55,7 @@ const FavoriteButton = ({
     <>
       <Animated.View
         style={{ opacity: fadeAnim }}
-        className={'absolute bottom-6 left-6 right-6'}
+        className={'absolute bottom-5 left-6 right-6'}
       >
         <TouchableOpacity
           activeOpacity={0.9}
@@ -80,7 +81,7 @@ const FavoriteButton = ({
           <Text className="text-[#000] font-abelregular text-[16px]">
             Added to Favorites
           </Text>
-          <Image source={Tag} className="w-[28px] h-[28px] ml-2" />
+          <Image source={TagIcon} className="w-[28px] h-[28px] ml-2" />
         </Animated.View>
       )}
     </>

@@ -1,15 +1,20 @@
 import { useCallback, useState } from 'react'
 import { FlatList, Text, View } from 'react-native'
 import type { ListRenderItem } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import ActivityCard from '@/components/ActivityCard'
-import LoadingState from '@/components/LoadingState'
-import ErrorState from '@/components/ErrorState'
-import { useActivitiesQuery, type Activity } from '@/services/activities'
-import { RootStackScreenProps } from './types/root'
 
-const HomeScreen = ({ navigation }: RootStackScreenProps<'Home'>) => {
+import { SafeAreaView } from 'react-native-safe-area-context'
+
+import { useActivitiesQuery } from '@services/activities'
+import { RootStackRoute, RootStackScreenProps } from './types/root'
+import type { Activity } from '@types'
+
+import { ActivityCard, LoadingState, ErrorState } from '@components'
+
+const HomeScreen = ({
+  navigation,
+}: RootStackScreenProps<RootStackRoute.HOME>) => {
   const { data, isLoading, error, refetch } = useActivitiesQuery()
+
   const activities = data ?? []
   const [isRefreshing, setIsRefreshing] = useState(false)
 
@@ -17,7 +22,11 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<'Home'>) => {
     ({ item }) => (
       <ActivityCard
         activity={item}
-        onPress={() => navigation.navigate('Details', { activityId: item.id })}
+        onPress={() =>
+          navigation.navigate(RootStackRoute.DETAILS, {
+            activityId: item.id,
+          })
+        }
         isFavourite={item.isFavourite}
       />
     ),
@@ -49,6 +58,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<'Home'>) => {
 
   const contentContainerClassName =
     isLoading || error ? 'flex-1 justify-center px-4' : 'py-6 px-4'
+
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true)
     try {

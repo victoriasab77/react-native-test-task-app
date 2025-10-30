@@ -1,26 +1,8 @@
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  type UseQueryOptions,
-} from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+
+import { Activity, ActivitiesQueryOptions } from '@types'
+
 import { api } from './api'
-
-export type Activity = {
-  id: number
-  photoUrl: string
-  name: string
-  description: string
-  location: string
-  price: number
-  rating: number
-  isFavourite?: boolean
-}
-
-type ActivitiesQueryOptions<TData> = Omit<
-  UseQueryOptions<Activity[], Error, TData>,
-  'queryKey' | 'queryFn'
->
 
 export const useActivitiesQuery = <TData = Activity[]>(
   options?: ActivitiesQueryOptions<TData>,

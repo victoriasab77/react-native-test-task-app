@@ -1,10 +1,18 @@
-import type { Activity } from '@/services/activities'
 import { StackScreenProps } from '@react-navigation/stack'
 
-export type RootStackParamList = {
-  Home: undefined
-  Details: { activityId: Activity['id'] }
+import type { Activity } from '@types'
+
+export enum RootStackRoute {
+  HOME = 'Home',
+  DETAILS = 'Details',
 }
 
-export type RootStackScreenProps<T extends keyof RootStackParamList> =
-  StackScreenProps<RootStackParamList, T>
+export type RootStackParamList = {
+  [RootStackRoute.HOME]: undefined
+  [RootStackRoute.DETAILS]: { activityId: Activity['id'] }
+}
+
+export type RootStackScreenProps<T extends RootStackRoute> = StackScreenProps<
+  RootStackParamList,
+  T
+>

@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-import PlaceholderImage from '@/assets/images/placeholder.webp'
+import { PlaceholderImage } from '@assets/images'
 
 type Props = Omit<ImageProps, 'source'> & {
   uri?: string | null
