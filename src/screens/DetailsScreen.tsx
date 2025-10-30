@@ -1,7 +1,12 @@
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { useCachedActivity, useAddFavoriteMutation } from '@services/activities'
-import { RootStackRoute, RootStackScreenProps } from './types/root'
+import {
+  RootStackRoute,
+  RootStackNavigationProp,
+  RootStackRouteProp,
+} from './types/root'
 
 import {
   LoadingState,
@@ -11,12 +16,10 @@ import {
 } from '@components'
 import { texts } from '@texts'
 
-import { ArrowLeftIcon } from '@assets/icons'
-
-const DetailsScreen = ({
-  navigation,
-  route,
-}: RootStackScreenProps<RootStackRoute.DETAILS>) => {
+const DetailsScreen = () => {
+  const navigation =
+    useNavigation<RootStackNavigationProp<RootStackRoute.DETAILS>>()
+  const route = useRoute<RootStackRouteProp<RootStackRoute.DETAILS>>()
   const { activityId } = route.params
 
   const {
@@ -75,14 +78,6 @@ const DetailsScreen = ({
           uri={photoUrl}
           className="w-full h-[450px] rounded-b-3xl bg-surface-muted"
         />
-
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={goBack}
-          className="absolute top-14 left-4 rounded-full p-6 bg-surface"
-        >
-          <Image source={ArrowLeftIcon} className="w-5 h-5" />
-        </TouchableOpacity>
       </View>
 
       <ScrollView

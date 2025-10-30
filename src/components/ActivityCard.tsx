@@ -7,7 +7,7 @@ import { RemoteImage } from '@components'
 import { MapPinIcon, TagIcon, StarIcon } from '@assets/icons'
 import { texts } from '@texts'
 
-type Props = {
+interface ActivityCardProps {
   activity: Activity
   isFavourite?: boolean
   onPress: () => void
@@ -17,7 +17,7 @@ export default function ActivityCard({
   activity,
   isFavourite,
   onPress,
-}: Props) {
+}: ActivityCardProps) {
   const { name, location, price, rating, photoUrl } = activity
   const activityPrice = price.toFixed(2)
   const activityRating = rating?.toFixed(1)

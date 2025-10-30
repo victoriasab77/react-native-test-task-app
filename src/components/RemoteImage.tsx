@@ -13,7 +13,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { PlaceholderImage } from '@assets/images'
 
-type Props = Omit<ImageProps, 'source'> & {
+interface RemoteImageProps extends Omit<ImageProps, 'source'> {
   uri?: string | null
   fallbackSource?: ImageURISource | number
 }
@@ -38,7 +38,7 @@ const RemoteImage = ({
   onLoad,
   onError,
   ...rest
-}: Props) => {
+}: RemoteImageProps) => {
   const [shouldUseFallback, setShouldUseFallback] = useState(!uri)
   const [loading, setLoading] = useState(false)
   const previousUriRef = useRef<string | null | undefined>(uri)

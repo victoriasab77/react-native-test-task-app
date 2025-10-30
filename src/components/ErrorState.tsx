@@ -1,23 +1,25 @@
 import { Text, View } from 'react-native'
-import type { FC, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
-type ErrorStateProps = {
+interface ErrorStateProps {
   message: string
   className?: string
   messageClassName?: string
   children?: ReactNode
 }
 
-const ErrorState: FC<ErrorStateProps> = ({
+const ErrorState = ({
   message,
   className = 'flex-1 items-center justify-center',
   messageClassName = 'font-sfregular text-center text-label text-secondary',
   children,
-}) => (
-  <View className={className}>
-    <Text className={messageClassName}>{message}</Text>
-    {children}
-  </View>
-)
+}: ErrorStateProps) => {
+  return (
+    <View className={className}>
+      <Text className={messageClassName}>{message}</Text>
+      {children}
+    </View>
+  )
+}
 
 export default ErrorState

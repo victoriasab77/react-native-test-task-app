@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import { TagIcon } from '@assets/icons'
 import { texts } from '@texts'
 
-type FavoriteButtonProps = {
+interface FavoriteButtonProps {
   isFavourite: boolean
   isPending: boolean
   onPress: () => void

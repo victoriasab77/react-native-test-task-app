@@ -2,9 +2,11 @@ import {
   TransitionPresets,
   createStackNavigator,
 } from '@react-navigation/stack'
+import { View } from 'react-native'
 
 import HomeScreen from './HomeScreen'
 import DetailsScreen from './DetailsScreen'
+import { IconButton } from '@components'
 
 import { RootStackParamList, RootStackRoute } from './types/root'
 
@@ -29,7 +31,16 @@ const RootRouter = () => {
       <Stack.Screen
         name={RootStackRoute.DETAILS}
         component={DetailsScreen}
-        options={{ headerShown: false }}
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerTransparent: true,
+          title: '',
+          headerLeft: () => (
+            <View className="pl-4">
+              <IconButton onPress={navigation.goBack} size="lg" />
+            </View>
+          ),
+        })}
       />
     </Stack.Navigator>
   )
