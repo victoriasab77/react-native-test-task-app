@@ -9,6 +9,7 @@ import {
   RemoteImage,
   FavoriteButton,
 } from '@components'
+import { texts } from '@texts'
 
 import { ArrowLeftIcon } from '@assets/icons'
 
@@ -36,7 +37,7 @@ const DetailsScreen = ({
   if (isLoading) {
     return (
       <LoadingState
-        message="Loading activity…"
+        message={texts.details.loading}
         className="flex-1 items-center justify-center bg-white px-6"
       />
     )
@@ -45,7 +46,7 @@ const DetailsScreen = ({
   if (!activity) {
     return (
       <ErrorState
-        message="Unable to load the activity details right now."
+        message={texts.details.error}
         className="flex-1 items-center justify-center bg-white px-6"
       >
         <TouchableOpacity
@@ -54,7 +55,7 @@ const DetailsScreen = ({
           activeOpacity={0.8}
         >
           <Text className="font-abelregular text-white text-[14px]">
-            Go back
+            {texts.details.goBack}
           </Text>
         </TouchableOpacity>
       </ErrorState>
@@ -97,13 +98,13 @@ const DetailsScreen = ({
               ${formattedPrice}
             </Text>
             <Text className="font-sfregular text-[12px] text-[#979797]">
-              Included taxes and fees
+              {texts.details.priceSuffix}
             </Text>
           </View>
 
           <View className="mb-6">
             <Text className="text-[16px] font-abelregular text-black mb-1.5">
-              Description
+              {texts.details.description}
             </Text>
             <Text className="font-sfregular text-[14px] text-[#9D9D9D]">
               {description}
@@ -112,7 +113,7 @@ const DetailsScreen = ({
 
           <View className="border-b border-[#F5F5F5] pb-3 mb-10">
             <Text className="font-sfregular text-[14px] text-[#9D9D9D]">
-              Location: {location}
+              {texts.details.locationPrefix} {location}
             </Text>
           </View>
         </View>

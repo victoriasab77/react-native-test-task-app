@@ -9,6 +9,7 @@ import { RootStackRoute, RootStackScreenProps } from './types/root'
 import type { Activity } from '@types'
 
 import { ActivityCard, LoadingState, ErrorState } from '@components'
+import { texts } from '@texts'
 
 const HomeScreen = ({
   navigation,
@@ -38,14 +39,17 @@ const HomeScreen = ({
   const renderEmptyComponent = useCallback(() => {
     if (isLoading) {
       return (
-        <LoadingState className="flex-1 items-center justify-center py-10" />
+        <LoadingState
+          message={texts.home.loading}
+          className="flex-1 items-center justify-center py-10"
+        />
       )
     }
 
     if (error) {
       return (
         <ErrorState
-          message="Failed to load activities"
+          message={texts.home.error}
           className="flex-1 items-center justify-center py-10"
         />
       )
@@ -75,7 +79,7 @@ const HomeScreen = ({
     >
       <View className="mb-3 items-center">
         <Text className="font-abelregular text-[16px] text-[#000000]">
-          Activities
+          {texts.home.title}
         </Text>
       </View>
       <FlatList

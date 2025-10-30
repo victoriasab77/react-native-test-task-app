@@ -26,10 +26,11 @@ module.exports = function (api) {
           root: ['./src'],
           alias: {
             '@screens': './src/screens',
-            '@components': './src/components/index.ts',
+            '@components': './src/components',
             '@assets': './src/assets',
             '@services': './src/services',
-            '@types': './src/types/index.ts',
+            '@types': './src/types',
+            '@texts': './src/texts',
           },
         },
       ],

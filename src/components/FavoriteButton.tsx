@@ -2,6 +2,7 @@ import { Animated, Easing, Image, Text, TouchableOpacity } from 'react-native'
 import { useEffect, useMemo, useRef } from 'react'
 
 import { TagIcon } from '@assets/icons'
+import { texts } from '@texts'
 
 type FavoriteButtonProps = {
   isFavourite: boolean
@@ -66,7 +67,7 @@ const FavoriteButton = ({
           disabled={isDisabled}
         >
           <Text className="font-abelregular text-white text-center text-[16px]">
-            Add to Favorites
+            {texts.details.addToFavorites}
           </Text>
         </TouchableOpacity>
       </Animated.View>
@@ -79,7 +80,7 @@ const FavoriteButton = ({
           }
         >
           <Text className="text-[#000] font-abelregular text-[16px]">
-            Added to Favorites
+            {texts.details.addedToFavorites}
           </Text>
           <Image source={TagIcon} className="w-[28px] h-[28px] ml-2" />
         </Animated.View>
